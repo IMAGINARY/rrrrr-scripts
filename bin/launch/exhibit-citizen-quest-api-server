@@ -1,0 +1,38 @@
+#!/bin/bash
+# This wrapper script is supposed to be visible in ps -a resp. ps -u `id -u` to make
+# it easy to kill it (by a script or manually)
+
+PIDS=""
+function finish {
+    EXIT_CODE=$?
+    kill $PIDS >/dev/null 2>&1
+    exit $EXIT_CODE
+}
+trap finish SIGINT SIGTERM EXIT
+
+INSTALL_DIR="/opt/citizen-quest/citizen-quest/"
+SERVER_INSTALL_DIR="/opt/citizen-quest/citizen-quest/server"
+CONFIG_DIR="${HOME}/.config/citizen-quest"
+NODEJS_PATH="/opt/citizen-quest/nodejs/bin"
+
+# Options
+OPTS=()
+# Configure sentry.io data source name (dsn)
+if [ ! -z "${CITIZEN_QUEST_API_SERVER_SENTRY_DSN}" ]
+then
+  OPTS=(--sentry-dsn "${CITIZEN_QUEST_API_SERVER_SENTRY_DSN}")
+fi
+
+# Create a settings file if it doesn't exist already
+mkdir -p "${CONFIG_DIR}" && \
+  cp -n "${INSTALL_DIR}/settings.yml" "${CONFIG_DIR}/app-settings.yml"
+
+# Launch the citizen-quest API server
+cd "${SERVER_INSTALL_DIR}" || exit 1
+PATH="$NODEJS_PATH:$PATH" node main.js -s "${CONFIG_DIR}/app-settings.yml" "${OPTS[@]}" &
+PID_SERVER="$!"
+PIDS="$PIDS $PID_SERVER"
+
+# Wait for the server to finish or until the signal trap is triggered
+wait $PID_SERVER
+exit $?
