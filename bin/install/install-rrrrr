@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+install-kiosk-browser
+
+COMMITISH="8ab51e1078481a48e85b4d2aafb890f03bcc21f3"
+REPO_URL="https://github.com/IMAGINARY/rrrrr.git"
+INSTALL_DIR="/opt/rrrrr"
+export PATH="$NODEJS_BIN_DIR:$PATH"
+
+"${BASH_SOURCE%/*}/../internal/install-source-from-git" "$COMMITISH" "$REPO_URL" "$INSTALL_DIR"
