@@ -10,6 +10,14 @@ function finish {
 }
 trap finish SIGINT SIGTERM EXIT
 
+# Configure startup delay
+if [ ! -z "${RRRRR_STARTUP_DELAY}" ]
+then
+  echo "Waiting for ${RRRRR_STARTUP_DELAY} seconds before starting the exhibit"
+  sleep "${RRRRR_STARTUP_DELAY}"
+fi
+
+
 # Options
 QUERY_STRING="tuio=true&tuioUrl=${RRRRR_TUIO_URL}"
 
