@@ -11,17 +11,19 @@ function finish {
 trap finish SIGINT SIGTERM EXIT
 
 # Options
-QUERY_STRING="tuio=true&tuioUrl=${RRRRR_TUIO_URL}'"
+QUERY_STRING="tuio=true&tuioUrl=${RRRRR_TUIO_URL}"
 
 # Configure pointer marker
-if [ -n "${RRRRR_POINTER_MARKER}" ]
+if [ ! -z "${RRRRR_POINTER_MARKER}" ]
 then
+  echo "Using RRRRR_POINTER_MARKER=${RRRRR_POINTER_MARKER}"
   QUERY_STRING="${QUERY_STRING}&pointer=${RRRRR_POINTER_MARKER}"
 fi
 
 # Configure sentry.io data source name (dsn)
-if [ -n "${RRRRR_SENTRY_DSN}" ]
+if [ ! -z "${RRRRR_SENTRY_DSN}" ]
 then
+  echo "Using RRRRR_SENTRY_DSN=${RRRRR_SENTRY_DSN}"
   QUERY_STRING="${QUERY_STRING}&sentry-dsn=${RRRRR_SENTRY_DSN}"
 fi
 
