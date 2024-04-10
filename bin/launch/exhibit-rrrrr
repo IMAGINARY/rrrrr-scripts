@@ -11,9 +11,9 @@ function finish {
 trap finish SIGINT SIGTERM EXIT
 
 # Options
-QUERY_STRING=""
+QUERY_STRING="pointer=true&tuio=true&tuioUrl=${RRRRR_TUIO_URL}'"
 # Configure sentry.io data source name (dsn)
-if [ ! -z "${RRRRR_SENTRY_DSN}" ]
+if [ -n "${RRRRR_SENTRY_DSN}" ]
 then
   QUERY_STRING="${QUERY_STRING}&sentry-dsn=${RRRRR_SENTRY_DSN}"
 fi
