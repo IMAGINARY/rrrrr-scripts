@@ -4,7 +4,7 @@ set -e
 
 install-kiosk-browser
 
-COMMITISH="d243a10ce5345d9439360f22c43e11e9f2018347"
+COMMITISH="dd6ade13571a0c0fad75dbef94c4d49d1dcf3849"
 REPO_URL="https://github.com/IMAGINARY/rrrrr.git"
 INSTALL_DIR="/opt/rrrrr"
 export PATH="$NODEJS_BIN_DIR:$PATH"
