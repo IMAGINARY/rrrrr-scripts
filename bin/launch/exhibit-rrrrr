@@ -32,7 +32,7 @@ fi
 if [ ! -z "${RRRRR_SENTRY_DSN}" ]
 then
   echo "Using RRRRR_SENTRY_DSN=${RRRRR_SENTRY_DSN}"
-  QUERY_STRING="${QUERY_STRING}&sentry-dsn=${RRRRR_SENTRY_DSN}"
+  QUERY_STRING="${QUERY_STRING}&sentryDsn=${RRRRR_SENTRY_DSN}"
 fi
 
 # Launch the exhibit in the background
